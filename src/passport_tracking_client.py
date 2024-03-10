@@ -23,7 +23,11 @@ class PassportTrackingClient:
     def get_status(self, reference: str) -> Dict[str, object]:
         self.__set_one()
         soup = self.__step_two(reference)
-        date = self.__get_expected_date(soup)
+        danger_div = soup.find('div', class_='alert alert-danger')
+        if danger_div is not None:
+            return {
+                "Status": danger_div.text.strip()
+            }
         status = self.__get_current_status(soup)
         return {
             "Expected Date": date,
