@@ -28,6 +28,7 @@ class PassportTrackingClient:
             return {
                 "Status": danger_div.text.strip()
             }
+        date = self.__get_expected_date(soup)
         status = self.__get_current_status(soup)
         return {
             "Expected Date": date,
